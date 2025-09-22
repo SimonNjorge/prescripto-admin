@@ -3,3 +3,6 @@
     --color-primary: #5F6FFF; /* Custom primary color */
     --font-script: "Great Vibes", cursive; /* Custom font family */
 }
+::-webkit-scrollbar{
+    @apply hidden
+}
