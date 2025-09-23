@@ -9,7 +9,8 @@ const AdminContextProvider = (props) => {
 
     const [adminAtoken, setAdminAtoken] = useState(localStorage.getItem('accessToken') || '');
     const [doctors, setDoctors] = useState([]);
-
+    console.log(adminAtoken);
+    
     //to access an environment variable in vite
     //use import.meta.env.variablename
     const backendUrl = import.meta.env.VITE_BACKEND_URL;
@@ -17,9 +18,11 @@ const AdminContextProvider = (props) => {
     const getAllDoctors = async () => {
         try {
             
-            const { data } = await axios.get(backendUrl + '/api/admin/all-doctors', {}, {
-                headers:{
-                    'Authorization': `Bearer ${adminAtoken}`
+            const { data } = await axios.post(backendUrl + '/api/admin/all-doctors',
+                {},
+                {
+                headers: {
+                    'authorization': `Bearer ${adminAtoken}`
                 }
             });
             if(data.success) {
@@ -27,7 +30,6 @@ const AdminContextProvider = (props) => {
             } else {
                 toast.error(data.message)
             }
-
         } catch (error) {
             toast.error(error.message)
         }
