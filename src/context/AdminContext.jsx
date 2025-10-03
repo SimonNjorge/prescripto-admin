@@ -9,7 +9,7 @@ const AdminContextProvider = (props) => {
 
     const [adminAtoken, setAdminAtoken] = useState(localStorage.getItem('accessToken') || '');
     const [doctors, setDoctors] = useState([]);
-    console.log(adminAtoken);
+    const [appointments, setAppointments] = useState([]);
     
     //to access an environment variable in vite
     //use import.meta.env.variablename
@@ -57,7 +57,63 @@ const AdminContextProvider = (props) => {
         }
     }
 
-    const value = {adminAtoken, setAdminAtoken, backendUrl, doctors, getAllDoctors, toggleAvailabilty} 
+    const  getAllAppointments =  async () => {
+
+        try {
+            
+            const { data } = await axios.get(backendUrl + '/api/admin/get-appointments',
+                {
+                    headers: {
+                        'Authorization' : `Bearer ${adminAtoken}`
+                    }
+                }
+            )
+
+            if (data.success) {
+                setAppointments(data.appointments)
+                console.log(appointments);
+                console.log(data.appointments);
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            toast.error(error.message)
+        }
+
+    }
+
+    const cancelAppointment = async (appointmentId) => {
+        try {
+            
+            const { data } = await axios.post(backendUrl + '/api/admin/cancel-appointment',
+                {appointmentId},
+                {
+                    headers: {
+                        'Authorization': `Bearer ${adminAtoken}`
+                    }
+                }
+            )
+
+            if (data.success) {
+                toast.success(data.message);
+                getAllAppointments()
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
+    const value = {
+        adminAtoken, setAdminAtoken,
+        backendUrl, 
+        doctors, getAllDoctors, toggleAvailabilty,
+        appointments, setAppointments, getAllAppointments,
+        cancelAppointment
+    } 
 
     return (
         <AdminContext.Provider value={value}>

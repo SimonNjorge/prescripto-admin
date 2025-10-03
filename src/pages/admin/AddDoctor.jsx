@@ -1,4 +1,4 @@
-import React, { useContext, useState, useRef } from "react";
+import React, { useContext, useState } from "react";
 import { assets } from "../../assets/assets";
 import axios from "axios";
 import { AdminContext } from "../../context/AdminContext";
@@ -50,7 +50,7 @@ const AddDoctor = () => {
         //console.log(`${key} : ${value}`);
       });*/
       
-      const {data} = await axios.post(backendUrl + '/api/admin/add-doctor',
+      const { data } = await axios.post(backendUrl + '/api/admin/add-doctor',
         formData,
         {
           headers: {
