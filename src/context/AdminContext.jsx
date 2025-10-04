@@ -3,13 +3,14 @@ import { createContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export const AdminContext = createContext();
+const AdminContext = createContext();
 
 const AdminContextProvider = (props) => {
 
     const [adminAtoken, setAdminAtoken] = useState(localStorage.getItem('accessToken') || '');
     const [doctors, setDoctors] = useState([]);
     const [appointments, setAppointments] = useState([]);
+    const [dashBData, setDashBData] =  useState(false);
     
     //to access an environment variable in vite
     //use import.meta.env.variablename
@@ -107,12 +108,31 @@ const AdminContextProvider = (props) => {
         }
     }
 
+    const getDashBoardData = async () => {
+        try {
+            
+            const  { data } = await axios.get(backendUrl + '/api/admin/dashboard',
+                {headers: {'Authorization' : `Bearer ${adminAtoken}`}}
+            )
+
+            if (data.success) {
+                setDashBData(data.dashBData)
+                console.log(data.dashBData)
+            } else {
+                toast.error(data.message)
+            }
+
+        } catch (error) {
+            toast.error(error.message)
+        }
+    }
+
     const value = {
         adminAtoken, setAdminAtoken,
         backendUrl, 
         doctors, getAllDoctors, toggleAvailabilty,
-        appointments, setAppointments, getAllAppointments,
-        cancelAppointment
+        appointments, setAppointments, getAllAppointments, cancelAppointment, 
+        dashBData, getDashBoardData
     } 
 
     return (
@@ -122,5 +142,5 @@ const AdminContextProvider = (props) => {
     )
 }
 
-export default AdminContextProvider;
+export { AdminContextProvider, AdminContext };
 
