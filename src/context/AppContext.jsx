@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export const AppContext = createContext();
+const AppContext = createContext();
 
 const AppContextProvider = (props) => {
 
@@ -33,5 +33,5 @@ const AppContextProvider = (props) => {
     )
 }
 
-export default AppContextProvider;
+export { AppContextProvider, AppContext };
 
