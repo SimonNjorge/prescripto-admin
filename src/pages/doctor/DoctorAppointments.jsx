@@ -17,8 +17,8 @@ const DoctorAppointments = () => {
   return (
     <div className="w-full max-w-6xl m-5">
       <p className="text-lg font-medium mb-3">All Appointments</p>
-      <div className="bg-white border rounded text-sm max-h-[80vh] min-h-[50vh] overflow-y-scroll">
-        <div className="max-sm:hidden grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 py-3 px-6 border-b">
+      <div className="bg-white border border-gray-400 rounded text-sm max-h-[80vh] min-h-[50vh] overflow-y-scroll">
+        <div className="max-sm:hidden grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 py-3 px-6 border-b  border-gray-400">
           <p>#</p>
           <p>Patient</p>
           <p>Payment</p>
@@ -28,7 +28,7 @@ const DoctorAppointments = () => {
           <p>Actions</p>
         </div>
         {appointments.reverse().map((appntmnt, i) => (
-          <div clasame="flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] gap-1 py-3 px-6 border-b hover:bg-gray-100">
+          <div key={i} className="flex flex-wrap justify-between max-sm:gap-5 max-sm:text-base sm:grid sm:grid-cols-[0.5fr_2fr_1fr_1fr_3fr_1fr_1fr] items-center gap-1 py-3 px-3 border-b border-gray-400 hover:bg-gray-100">
             <p className="max-sm:hidden">{i + 1}</p>
             <div className="flex items-center gap-2">
               <img
@@ -38,7 +38,7 @@ const DoctorAppointments = () => {
               />
               <p>{appntmnt.userData.name}</p>
             </div>
-            <p className="text-xs border border-primary rounded-full">
+            <p className="text-xs border border-primary rounded-lg h-5 flex items-center justify-center">
               {appntmnt.payment ? "Online" : "Cash"}
             </p>
             <p className="max-sm:hidden">
@@ -56,13 +56,13 @@ const DoctorAppointments = () => {
               <div className="flex">
                 <img
                   onClick={() => cancelAppointment(appntmnt._id)}
-                  className="w-10 cursor-pointer"
+                  className="w-8 cursor-pointer"
                   src={assets.cancel_icon}
                   alt=""
                 />
                 <img
                   onClick={() => completeAppointment(appntmnt._id)}
-                  className="w-10 cursor-pointer"
+                  className="w-8 cursor-pointer"
                   src={assets.tick_icon}
                   alt=""
                 />
