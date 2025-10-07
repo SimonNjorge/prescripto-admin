@@ -6,7 +6,7 @@ import {assets} from "../../assets/assets"
 
 const AllAppointments = () => {
 
-  const { adminAtoken, appointments, setAppointments, getAllAppointments, cancelAppointment} = useContext(AdminContext);
+  const { adminAtoken, appointments, getAllAppointments, cancelAppointment} = useContext(AdminContext);
   const { calculateAge, formatSlotDate, currencySymbol } = useContext(AppContext);
 
   useEffect(()=>{
