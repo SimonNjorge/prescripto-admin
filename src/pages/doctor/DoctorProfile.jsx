@@ -37,7 +37,7 @@ const DoctorProfile = () => {
       }
 
     } catch (error) {
-      toast.error(error.message + 'fege')
+      toast.error(error.message)
     }
   }
 
@@ -50,10 +50,10 @@ const DoctorProfile = () => {
   return profileData && (
     <div>
 
-      <div className='flex flex-col gap-4 m-5'>
+      <div className='flex flex-col max-sm:items-center gap-4 m-5 max-sm:mx-0'>
         {
           isEdit 
-          ? <div className='bg-primary/60 w-[280px] h-[300px] overflow-hidden rounded-lg max-sm:w-64 relative'>
+          ? <div className='bg-primary/60 max-w-[280px] max-h-[300px] overflow-hidden rounded-lg max-sm:max-w-48 relative'>
             {
               image 
               ? <>
@@ -66,45 +66,45 @@ const DoctorProfile = () => {
               : <>
                   <img className='bg-primary/90 w-full' src={profileData.image} alt="" />
                   <label className='absolute top-[50%] left-[50%] -translate-x-1/2 -translate-y-1/2' htmlFor="doc_image">
-                    <img src={assets.upload_area} alt="" />
+                    <img src={assets.add_icon} alt="" />
                   </label>
                   <input onChange={(e)=>setImage(e.target.files[0])} type="file" name="" id="doc_image" className='hidden'/>
                 </>
             }
           </div>
-          : <div className='bg-primary/90 w-[280px] rounded-lg max-sm:w-64'>
+          : <div className='bg-primary/90 max-w-[280px] rounded-lg max-sm:max-w-48'>
             <img className='w-full' src={profileData.image} alt="" />
           </div>
         }
-        <div className='flex-1 border border-stone-100 p-8 py-7 rounded-lg bg-white'>
+        <div className='flex-1 border border-stone-100 p-8 py-7 rounded-lg bg-white max-sm:p-3'>
 
           {/*-- doc name, degree, speciality and experience --*/}
           <p className='flex items-center gap-2 text-3xl text-gray-700 font-medium'>{profileData.name}</p>
-          <div className='flex items-center gap-2 mt-1 text-gray-600'>
+          <div className='flex sm:items-center gap-2 mt-1 text-gray-600 max-sm:flex-col'>
             <p>{profileData.degree} - {profileData.speciality}</p>
             {
               isEdit 
               ? <input onChange={(e)=>setProfileData(prev => ({...prev, experience: e.target.value}))} value={profileData.experience} className='border border-gray-300 p-2' placeholder='Experience' type="text"  id="" />
-              :  <p className='py-0.5 px-2 border rounded-full text-xs'>{profileData.experience}</p>
+              : <p className='py-0.5 px-2 w-16 border rounded-full text-xs'>{profileData.experience}</p>
             }
           </div>
           <div>
             <p className='flex items-center gap-1 text-sm font-medium text-neutral-800 mt-3'>About:</p>
             {
               isEdit
-              ? <textarea onChange={(e)=>setProfileData(prev => ({...prev, about: e.target.value}))} value={profileData.about} className='p-4 border border-gray-400 w-full h-[100px]' name=""  id="" placeholder='Type here'></textarea>
+              ? <textarea onChange={(e)=>setProfileData(prev => ({...prev, about: e.target.value}))} value={profileData.about} className='p-4 border border-gray-400 max-w-[700px] h-[100px]' name=""  id="" placeholder='Type here'></textarea>
               : <p className='text-sm text-gray-600 max-w-[700px] mt-1'>{profileData.about}</p>
             }
           </div>
           <p className='text-gray-600 font-medium mt-4'>
             Appointment fee: {
               isEdit
-              ? <input onChange={(e)=>setProfileData(prev => ({...prev, fees: e.target.value}))} value={profileData.fees} type="number" name="" id="" className='border border-gray-400' />
+              ? <input onChange={(e)=>setProfileData(prev => ({...prev, fees: e.target.value}))} value={profileData.fees} type="number" name="" id="" className='border border-gray-400 max-sm:w-10' />
               : <span className='text-gray-800'>{currencySymbol}{profileData.fees}</span>
             } 
           </p>
 
-          <div className='flex gap-2 py-2'>
+          <div className='flex gap-2 py-2 max-sm:flex-col'>
             <p>Address:</p>
             {
               isEdit
@@ -131,9 +131,11 @@ const DoctorProfile = () => {
                 {
                   profileData.available
                   ? <p className='h-2 w-2 rounded-full bg-green-500'></p>
-                  : <p className='h-2 w-2 rounded-full bg-red-500'></p>
+                  : <p className='h-2 w-2 rounded-full bg-gray-500'></p>
                 }
-                <p>Available</p>
+                <p className={`${profileData.available ? 'text-green-500' : 'text-black'} font-semibold`}>
+                  {profileData.available ? 'Available' : 'Not Available'}
+                </p>
               </div>
             }
           </div>

@@ -12,7 +12,7 @@ const DoctorsList = () => {
 
   return (
     <div className='m-5 max-h-[90vh] overflow-y-scroll'>
-      <h1 className='font-semibold text-2xl'>All Doctors</h1>
+      <h1 className='font-semibold text-lg'>All Doctors</h1>
       <div className='flex flex-wrap gap-4 pt-5 gap-y-6'>
         {
           doctors.map((doc, i)=>(

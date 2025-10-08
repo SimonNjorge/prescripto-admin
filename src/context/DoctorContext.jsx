@@ -68,10 +68,10 @@ const DoctorContextProvider = (props) => {
         }
     }
 
-    const cancelAppointment = async (AppointmentId) => {
+    const cancelAppointment = async (appointmentId) => {
         try {
             
-            const { data } = await axios.post(backendUrl + '/api/doctor/cancel-appointment', {AppointmentId},
+            const { data } = await axios.post(backendUrl + '/api/doctor/cancel-appointment', {appointmentId},
                 {headers: {'Authorization' : `Bearer ${docAtoken}`}}
             );
             if (data.success) {
@@ -86,10 +86,10 @@ const DoctorContextProvider = (props) => {
         }
     }
 
-    const completeAppointment = async (AppointmentId) => {
+    const completeAppointment = async (appointmentId) => {
         try {
             
-            const { data } = await axios.post(backendUrl + '/api/doctor/complete-appointment', {AppointmentId},
+            const { data } = await axios.post(backendUrl + '/api/doctor/complete-appointment', {appointmentId},
                 {headers: {'Authorization' : `Bearer ${docAtoken}`}}
             );
             if (data.success) {

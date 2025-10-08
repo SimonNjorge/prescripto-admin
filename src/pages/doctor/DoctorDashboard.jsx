@@ -19,17 +19,17 @@ const DoctorDashboard = () => {
       <div className="m-5">
 
         <div className="flex flex-wrap gap-3">
-          <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-200 cursor-pointer hover:scale-105 transition-all duration-300">
+          <div className="flex items-center gap-2 bg-white p-4 sm:min-w-52 max-sm:min-w-44 rounded border-2 border-gray-200 cursor-pointer hover:scale-105 transition-all duration-300">
             <img className="w-14" src={assets.earning_icon} alt="" />
             <div>
               <p className="text-lg text-gray-600 font-semibold">
-                {currencySymbol}{dashBData.earnigs}
+                {currencySymbol}{dashBData.earnings}
               </p>
               <p className="text-sm text-gray-500">Earnings</p>
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-200 cursor-pointer hover:scale-105 transition-all duration-300">
+          <div className="flex items-center gap-2 bg-white p-4 sm:min-w-52 max-sm:min-w-44 rounded border-2 border-gray-200 cursor-pointer hover:scale-105 transition-all duration-300">
             <img className="w-14" src={assets.appointment_icon} alt="" />
             <div>
               <p className="text-lg text-gray-600 font-semibold">
@@ -39,7 +39,7 @@ const DoctorDashboard = () => {
             </div>
           </div>
 
-          <div className="flex items-center gap-2 bg-white p-4 min-w-52 rounded border-2 border-gray-200 cursor-pointer hover:scale-105 transition-all duration-300">
+          <div className="flex items-center gap-2 bg-white p-4 sm:min-w-52 max-sm:min-w-44 rounded border-2 border-gray-200 cursor-pointer hover:scale-105 transition-all duration-300">
             <img className="w-14" src={assets.patients_icon} alt="" />
             <div>
               <p className="text-lg text-gray-600 font-semibold">

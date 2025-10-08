@@ -15,7 +15,7 @@ const Dashboard = () => {
   }, [adminAtoken])
 
   return dashBData && (
-    <div className='m-5'>
+    <div className='m-5 max-sm:mx-0.5'>
 
       <div className='flex flex-wrap gap-3'>
 
@@ -63,7 +63,7 @@ const Dashboard = () => {
                 appntmnt.cancelled 
                 ? <p className='text-red-400 text-xs font-medium'>Cancelled</p>
                 : appntmnt.isCompleted
-                  ? <p className="text-green-500 font-medium p-2 border border-gray-400 sm:min-w-48">Completed</p> 
+                  ? <p className="text-green-500 text-xs font-medium">Completed</p> 
                   : <img onClick={()=>cancelAppointment(appntmnt._id)} className='w-10' src={assets.cancel_icon}/>
               }
             </div>
