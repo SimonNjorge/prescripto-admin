@@ -17,6 +17,7 @@ const AddDoctor = () => {
   const [address1, setAddress1] = useState("");
   const [address2, setAddress2] = useState("");
   const [about, setAbout] = useState("");
+  const [action, setAction] = useState(false);
 
   //const formRef = useRef();
 
@@ -27,53 +28,64 @@ const AddDoctor = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     //formRef.current.reset();
-    try {
+    if (!action) {
+      try {
 
-      if(!docImage){
-        return toast.error('Please upload an image')
-      }
-
-      const formData = new FormData();
-      formData.append('image', docImage);
-      formData.append('name', name);
-      formData.append('email', email);
-      formData.append('password', password);
-      formData.append('experience', experience);
-      formData.append('fees', Number(fees));
-      formData.append('about', about);
-      formData.append('degree', degree);
-      formData.append('speciality', speciality);
-      formData.append('address', JSON.stringify({line1: address1, line2: address2}));
-      /*
-      formData.forEach((value, key)=>{
-        console.log(formData.values) 
-        //console.log(`${key} : ${value}`);
-      });*/
-      
-      const { data } = await axios.post(backendUrl + '/api/admin/add-doctor',
-        formData,
-        {
-          headers: {
-            'authorization': `Bearer ${adminAtoken}`
-          }
+        if(!docImage){
+          return toast.error('Please upload an image')
         }
-      )
-      if(data.success){
-        toast.success(data.message)
-        setDocImage(false)
-        setName('')
-        setEmail('')
-        setPassword('')
-        setDegree('')
-        setFees('')
-        setAbout('')
-        setAddress1('')
-        setAddress2('')
-      } else {
-        toast.error(data.message)
+
+        setAction(true)
+        /*
+        await new Promise((resolve, reject) => {
+          setTimeout(()=>{
+          reject({message: 'failed'})
+        }, 12000)}).catch(console.log)*/
+
+        const formData = new FormData();
+        formData.append('image', docImage);
+        formData.append('name', name);
+        formData.append('email', email);
+        formData.append('password', password);
+        formData.append('experience', experience);
+        formData.append('fees', Number(fees));
+        formData.append('about', about);
+        formData.append('degree', degree);
+        formData.append('speciality', speciality);
+        formData.append('address', JSON.stringify({line1: address1, line2: address2}));
+        /*
+        formData.forEach((value, key)=>{
+          console.log(formData.values) 
+          //console.log(`${key} : ${value}`);
+        });*/
+        
+        const { data } = await axios.post(backendUrl + '/api/admin/add-doctor',
+          formData,
+          {
+            headers: {
+              'authorization': `Bearer ${adminAtoken}`
+            }
+          }
+        )
+        if(data.success){
+          toast.success(data.message)
+          setDocImage(false)
+          setName('')
+          setEmail('')
+          setPassword('')
+          setDegree('')
+          setFees('')
+          setAbout('')
+          setAddress1('')
+          setAddress2('')
+        } else {
+          toast.error(data.message)
+        }
+      } catch (error) {
+        toast.error(error.message)
+      } finally {
+        setAction(false)
       }
-    } catch (error) {
-      toast.error(error.message)
     }
   }
 
@@ -219,7 +231,13 @@ const AddDoctor = () => {
         </div>
 
         <button type="submit" className="bg-primary text-white px-6 py-2 mt-2 rounded-full cursor-pointer hover:bg-blue-400">
-          Add doctor
+          {action
+            ? <div className='flex items-center'>
+                <p className='w-3 h-3 border animate-spin mr-1'></p>
+                  adding...
+              </div>
+            : 'Add doctor'
+          }
         </button>
       </div>
     </form>

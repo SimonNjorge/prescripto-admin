@@ -11,41 +11,54 @@ const Login = () => {
     const [state, setState] = useState('Admin');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [action, setAction] = useState(false);
 
     const {setAdminAtoken, backendUrl} = useContext(AdminContext);
     const {setDocAtoken} = useContext(DoctorContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-            if(state == 'Admin') {
-                const {data} = await axios.post(backendUrl + '/api/admin/login',{email, password});
-                if(data.success) {
-                    //save the access token in localstorage
-                    localStorage.setItem('accessToken', data.accessToken)
-                    setAdminAtoken(data.accessToken);
-                } else {
-                    toast.error(data.message)
-                }
-            } else {
-                const { data } = await axios.post(backendUrl + '/api/doctor/login',
-                    {email, password},
-                );
+        if (!action) {
+            try {
+                setAction(true)
+                /*
+                await new Promise((resolve, reject) => {
+                setTimeout(()=>{
+                reject({message: 'failed'})
+                }, 12000)}).catch(console.log)*/
 
-                if(data.success) {
-                    //save the access token in localstorage
-                    localStorage.setItem('docAtoken', data.accessToken)
-                    setDocAtoken(data.accessToken);
+                if(state == 'Admin') {
+                    const {data} = await axios.post(backendUrl + '/api/admin/login',{email, password});
+                    if(data.success) {
+                        //save the access token in localstorage
+                        localStorage.setItem('accessToken', data.accessToken)
+                        setAdminAtoken(data.accessToken);
+                    } else {
+                        toast.error(data.message)
+                    }
                 } else {
-                    toast.error(data.message)
-                }
-            }   
+                    const { data } = await axios.post(backendUrl + '/api/doctor/login',
+                        {email, password},
+                    );
 
-        } catch (error) {
-            console.log(error);
-            toast.error(error.message)
+                    if(data.success) {
+                        //save the access token in localstorage
+                        localStorage.setItem('docAtoken', data.accessToken)
+                        setDocAtoken(data.accessToken);
+                    } else {
+                        toast.error(data.message)
+                    }
+                }   
+
+            } catch (error) {
+                console.log(error);
+                toast.error(error.message)
+            } finally {
+                setAction(false)
+            }
         }
     }
+
 
   return (
     <form onSubmit={handleSubmit} className='min-h-[80vh] flex items-center'>
@@ -60,7 +73,13 @@ const Login = () => {
                 <input onChange={(e)=>setPassword(e.target.value)} value={password} className='border border-[#DADADA] p-2 mt-1 rounded w-full' type="password" required />
             </div>
             <button type='submit' className='bg-primary text-white py-2 w-full rounded-md text-base cursor-pointer'>
-                Login
+                {action
+                ? <div className='flex items-center justify-center'>
+                    <p className='w-3 h-3 border mr-1 animate-spin'></p>
+                    Logging in...
+                  </div>
+                : 'Login'
+                }
             </button>
             {
                 state == 'Admin' 

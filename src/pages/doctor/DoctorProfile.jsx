@@ -12,32 +12,43 @@ const DoctorProfile = () => {
 
   const [isEdit, setIsEdit] = useState(false);
   const [image, setImage] = useState(false);
+   const [action, setAction] = useState(false);
 
   const updateProfile = async () => {
-    try {
+    if(!action){
+      try {
+        setAction(true)
+        /*
+        await new Promise((resolve, reject) => {
+          setTimeout(()=>{
+          reject({message: 'failed'})
+        }, 12000)}).catch(console.log)*/
 
-      const formData = new FormData();
-      formData.append("address", JSON.stringify(profileData.address));
-      formData.append("about", profileData.about)
-      formData.append("experience", profileData.experience)
-      formData.append("fees", profileData.fees)
-      formData.append("available", profileData.available)
-      image && formData.append("image", image)
+        const formData = new FormData();
+        formData.append("address", JSON.stringify(profileData.address));
+        formData.append("about", profileData.about)
+        formData.append("experience", profileData.experience)
+        formData.append("fees", profileData.fees)
+        formData.append("available", profileData.available)
+        image && formData.append("image", image)
 
-      const { data } = await axios.post(backendUrl + '/api/doctor/update-profile', formData,
-        {headers: {'Authorization': `Bearer ${docAtoken}`}}
-      )
+        const { data } = await axios.post(backendUrl + '/api/doctor/update-profile', formData,
+          {headers: {'Authorization': `Bearer ${docAtoken}`}}
+        )
 
-      if (data.success) {
-        toast.success(data.message)
-        setIsEdit(false);
-        getProfileData();
-      } else {
-        toast.error(data.message)
+        if (data.success) {
+          toast.success(data.message)
+          setIsEdit(false);
+          getProfileData();
+        } else {
+          toast.error(data.message)
+        }
+
+      } catch (error) {
+        toast.error(error.message)
+      } finally {
+        setAction(false)
       }
-
-    } catch (error) {
-      toast.error(error.message)
     }
   }
 
@@ -92,7 +103,7 @@ const DoctorProfile = () => {
             <p className='flex items-center gap-1 text-sm font-medium text-neutral-800 mt-3'>About:</p>
             {
               isEdit
-              ? <textarea onChange={(e)=>setProfileData(prev => ({...prev, about: e.target.value}))} value={profileData.about} className='p-4 border border-gray-400 max-w-[700px] h-[100px]' name=""  id="" placeholder='Type here'></textarea>
+              ? <textarea onChange={(e)=>setProfileData(prev => ({...prev, about: e.target.value}))} value={profileData.about} className='p-4 border border-gray-400 max-w-[700px] h-[100px] w-full' name=""  id="" placeholder='Type here'></textarea>
               : <p className='text-sm text-gray-600 max-w-[700px] mt-1'>{profileData.about}</p>
             }
           </div>
@@ -142,7 +153,13 @@ const DoctorProfile = () => {
           {
             isEdit
             ? <button onClick={updateProfile} className='px-4 py-1 border border-primary rounded-full text-sm mt-5 hover:bg-primary hover:text-white transition-all duration-500 cursor-pointer'>
-              Save information
+              {action
+                ? <div className='flex items-center justify-center'>
+                    <p className='w-3 h-3 border mr-1 animate-spin'></p>
+                      saving...
+                    </div>
+                : 'Save information'
+              }
             </button>
             : <button onClick={()=>setIsEdit(true)} className='px-4 py-1 border border-primary rounded-full text-sm mt-5 cursor-pointer hover:bg-primary hover:text-white transition-all duration-500'>
               Edit
