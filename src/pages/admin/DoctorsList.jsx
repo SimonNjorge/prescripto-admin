@@ -10,13 +10,13 @@ const DoctorsList = () => {
     getAllDoctors()
   }, [adminAtoken])
 
-  return (
+  return adminAtoken && (
     <div className='m-5 max-h-[90vh] overflow-y-scroll'>
       <h1 className='font-semibold text-lg'>All Doctors</h1>
       <div className='flex flex-wrap gap-4 pt-5 gap-y-6'>
         {
           doctors.map((doc, i)=>(
-            <div className='border border-indigo-200 rounded-xl max-w-[56]
+            <div className='border border-indigo-200 rounded-xl max-w-56
              overflow-hidden cursor-pointer group' key={i}
             >
               <img className='bg-indigo-50 group-hover:bg-primary transition-all duration-500 w-56' src={doc.image} alt="" />
