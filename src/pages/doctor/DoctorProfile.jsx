@@ -12,7 +12,7 @@ const DoctorProfile = () => {
 
   const [isEdit, setIsEdit] = useState(false);
   const [image, setImage] = useState(false);
-   const [action, setAction] = useState(false);
+  const [action, setAction] = useState(false);
 
   const updateProfile = async () => {
     if(!action){
@@ -165,7 +165,6 @@ const DoctorProfile = () => {
               Edit
             </button>
           }
-
         </div>
 
       </div>
