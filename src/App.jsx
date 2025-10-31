@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Login from './pages/Login'
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css'
 import { AdminContext } from './context/AdminContext';
 import Navbar from './components/Navbar';
 import Sidebar from './components/Sidebar';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import DoctorsList from './pages/admin/DoctorsList';
 import AllAppointments from './pages/admin/AllAppointments';
 import Dashboard from './pages/admin/Dashboard';
@@ -19,6 +19,14 @@ const App = () => {
 
   const {adminAtoken} = useContext(AdminContext);
   const {docAtoken} = useContext(DoctorContext);
+  const navigate = useNavigate();
+
+  useEffect(()=>{
+    if(adminAtoken || docAtoken ){
+      adminAtoken && navigate('/admin-dashboard');
+      docAtoken && navigate('/doctor-dashboard');
+    } 
+  }, [adminAtoken, docAtoken])
 
   return adminAtoken || docAtoken ? (
     <div className='bg-[#F8F9FD]'>

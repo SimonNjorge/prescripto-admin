@@ -59,7 +59,7 @@ const DoctorDashboard = () => {
             <div className='pt-4 border border-gray-400 border-t-0'>
                 {dashBData.latestAppointments.map((appntmnt, i) => (
                 <div className='flex items-center px-6 py-3 gap-3 hover:bg-gray-200 cursor-pointer' key={i}>
-                    <img className='w-10 rounded-full' src={appntmnt.userData.image} alt="" />
+                    <img className='w-10 h-10 rounded-full' src={appntmnt.userData.image} alt="" />
                     <div className='flex-1 text-sm'>
                     <p className='text-gray-800 font-semibold'>{appntmnt.userData.name}</p>
                     <p className='text-gray-600'>{formatSlotDate(appntmnt.slotDate)}</p>

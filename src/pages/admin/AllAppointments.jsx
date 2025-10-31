@@ -35,7 +35,7 @@ const AllAppointments = () => {
             className='flex flex-wrap justify-between max-sm:gap-2 sm:grid sm:grid-cols-[0.5fr_3fr_1fr_3fr_3fr_1fr_1fr] items-center text-gray-500 py-3 px-6 border-b border-gray-300 hover:bg-gray-100 cursor-pointer'>
             <p className='max-sm:hidden'>{i + 1}</p>
             <div className='flex items-center gap-2'>
-              <img src={appntmnt.userData.image} className='w-8 rounded-full' />
+              <img src={appntmnt.userData.image} className='w-8 h-8 object-contain rounded-full' />
               <p>{appntmnt.userData.name}</p>
             </div>
             <p className='max-sm:hidden'>{calculateAge(appntmnt.userData.dob)}</p>

@@ -97,7 +97,7 @@ const AddDoctor = () => {
         <div className="flex items-center gap-4 mb-8 text-gray-500">
           <label htmlFor="doc_img">
             <img
-              className="w-16 bg-gray-400 rounded-full cursor-pointer"
+              className="w-16 h-16 object-contain bg-gray-400 rounded-full cursor-pointer"
               src={ docImage ? URL.createObjectURL(docImage) : assets.upload_area}
               alt=""
             />

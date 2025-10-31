@@ -19,7 +19,7 @@ const DoctorsList = () => {
             <div className='border border-indigo-200 rounded-xl max-w-56
              overflow-hidden cursor-pointer group' key={i}
             >
-              <img className='bg-indigo-50 group-hover:bg-primary transition-all duration-500 w-56' src={doc.image} alt="" />
+              <img className='bg-indigo-50 group-hover:bg-primary transition-all duration-500 w-56 max-h-[230px] object-contain' src={doc.image} alt="" />
               <div className='p-4'>
                 <p className='text-neutral-800 text-lg font-medium'>{doc.name}</p>
                 <p className='text-zinc-600 text-sm'>{doc.speciality}</p>

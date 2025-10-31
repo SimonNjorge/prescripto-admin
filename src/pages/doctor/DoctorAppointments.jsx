@@ -32,7 +32,7 @@ const DoctorAppointments = () => {
             <p className="max-sm:hidden">{i + 1}</p>
             <div className="flex items-center gap-2">
               <img
-                className="w-8 rounded-full"
+                className="w-8 h-8 rounded-full"
                 src={appntmnt.userData.image}
                 alt=""
               />
