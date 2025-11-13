@@ -62,7 +62,7 @@ const Login = () => {
 
   return (
     <form onSubmit={handleSubmit} className='min-h-[80vh] flex items-center'>
-        <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[340px] sm:min-w-[96] border rounded-xl text-gray-500 shadow-lg'>
+        <div className='flex flex-col gap-3 m-auto items-start p-8 min-w-[250px] sm:min-w-[96] border rounded-xl text-gray-500 shadow-lg'>
             <p className='text-2xl font-semibold m-auto'><span className='text-primary'>{state}</span> Login</p>
             <div className='w-full'>
                 <p>Email</p>
